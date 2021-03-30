@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shoppinglist.R
+import com.example.shoppinglist.data.ShoppingItem
 import com.example.shoppinglist.model.MainViewModel
-import com.example.shoppinglist.model.ShoppingItem
 
 class AddItemFragment: Fragment() {
 
@@ -45,8 +45,10 @@ class AddItemFragment: Fragment() {
         val itemName: EditText = view.findViewById(R.id.item_name_field)
         val quantity: EditText = view.findViewById(R.id.quantity_field)
         val shoppingItem = ShoppingItem(
-                name = itemName.text.toString(),
-                quantity = quantity.text.toString().toInt()
+            id = 0,
+            name = itemName.text.toString(),
+            quantity = quantity.text.toString().toInt(),
+            collected = false
         )
         viewModel.addShoppingItem(shoppingItem)
         findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)

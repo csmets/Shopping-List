@@ -9,10 +9,13 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglist.R
+import com.example.shoppinglist.data.ShoppingItem
 
 class ShoppingItemAdapter(
     private val viewModel: MainViewModel
     ) : RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItemViewHolder>() {
+
+    private var shoppingItemsList = emptyList<ShoppingItem>()
 
     class ShoppingItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val quantity: TextView = view.findViewById(R.id.quantity)
@@ -28,7 +31,8 @@ class ShoppingItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ShoppingItemViewHolder, position: Int) {
-        val item: ShoppingItem = viewModel.shoppingItems.get(position)
+        val item: ShoppingItem = shoppingItemsList[position]
+
         holder.quantity.text = "Quantity: ${item?.quantity}"
         holder.item.text = item.name
 
@@ -39,10 +43,15 @@ class ShoppingItemAdapter(
         } }
 
         holder.removeItemBtn.setOnClickListener {
-            viewModel.removeShoppingItem(position)
+            viewModel.removeShoppingItem(item)
             this.notifyDataSetChanged()
         }
     }
 
-    override fun getItemCount() = viewModel.shoppingItems.size
+    override fun getItemCount() = shoppingItemsList.size
+
+    fun setData(shoppingItems: List<ShoppingItem>) {
+        this.shoppingItemsList = shoppingItems
+        this.notifyDataSetChanged()
+    }
 }

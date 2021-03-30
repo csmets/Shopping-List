@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.shoppinglist.R
 import com.example.shoppinglist.databinding.MainFragmentBinding
@@ -32,9 +33,13 @@ class MainFragment : Fragment() {
         )
 
         binding.lifecycleOwner = viewLifecycleOwner
-
-        binding.shoppingListView.adapter = ShoppingItemAdapter(viewModel)
+        val adapter = ShoppingItemAdapter(viewModel)
+        binding.shoppingListView.adapter = adapter
         binding.shoppingListView.setHasFixedSize(true)
+
+        viewModel.readAllData.observe(viewLifecycleOwner, Observer { shoppingItem ->
+            adapter.setData(shoppingItem)
+        })
 
         binding.addItemViewBtn.setOnClickListener { addItemView() }
 
