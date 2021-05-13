@@ -10,7 +10,7 @@ interface ShoppingItemDao {
     suspend fun addShoppingItem(shoppingItem: ShoppingItem)
 
     @Query("SELECT * FROM shopping_table ORDER BY id ASC")
-    fun readAllData(): LiveData<List<ShoppingItem>>
+    fun readAllData(): LiveData<MutableList<ShoppingItem>>
 
     @Delete
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)

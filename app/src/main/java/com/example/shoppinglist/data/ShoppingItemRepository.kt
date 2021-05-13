@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 class ShoppingItemRepository(private val shoppingItemDao: ShoppingItemDao) {
 
-    val readAllData: LiveData<List<ShoppingItem>> = shoppingItemDao.readAllData()
+    val readAllData: LiveData<MutableList<ShoppingItem>> = shoppingItemDao.readAllData()
 
     suspend fun addShoppingItem(shoppingItem: ShoppingItem) {
         shoppingItemDao.addShoppingItem(shoppingItem)

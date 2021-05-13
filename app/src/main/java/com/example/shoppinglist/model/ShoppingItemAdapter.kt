@@ -15,7 +15,7 @@ class ShoppingItemAdapter(
     private val viewModel: MainViewModel
     ) : RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItemViewHolder>() {
 
-    private var shoppingItemsList = emptyList<ShoppingItem>()
+    private var shoppingItemsList: MutableList<ShoppingItem> = mutableListOf()
 
     class ShoppingItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val quantity: TextView = view.findViewById(R.id.quantity)
@@ -50,8 +50,18 @@ class ShoppingItemAdapter(
 
     override fun getItemCount() = shoppingItemsList.size
 
-    fun setData(shoppingItems: List<ShoppingItem>) {
+    fun setData(shoppingItems: MutableList<ShoppingItem>) {
         this.shoppingItemsList = shoppingItems
         this.notifyDataSetChanged()
+    }
+
+    fun moveItem(from: Int, to: Int) {
+        val fromEmoji = shoppingItemsList[from]
+        shoppingItemsList.removeAt(from)
+        if (to < from) {
+            shoppingItemsList.add(to, fromEmoji)
+        } else {
+            shoppingItemsList.add(to - 1, fromEmoji)
+        }
     }
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<ShoppingItem>>
+    val readAllData: LiveData<MutableList<ShoppingItem>>
     private val repository: ShoppingItemRepository
 
     init {
